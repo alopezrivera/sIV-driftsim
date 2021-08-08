@@ -1,5 +1,6 @@
 from drift.ship import ship
 from drift.drift import drift
+from drift.utils import title
 
 
 """
@@ -25,6 +26,8 @@ def main():
     """
     SIMULATION
     """
+    title()
+
     # SETUP
     s = ship(lon=SHIP_LON,
              lat=SHIP_LAT,
