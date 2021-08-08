@@ -1,3 +1,4 @@
+import os
 from datetime import datetime, timedelta
 
 from opendrift.models.oceandrift import OceanDrift
@@ -48,10 +49,8 @@ def drift(nosecone_lon0,
     o = OceanDrift(loglevel=loglevel)
 
     # Sea dynamics
-    reader_phy_15 = reader_netCDF_CF_generic.Reader(
-            'C:/Users/xXY4n/DARE/_Active/Stratos IV/_Recovery/Retrieval/Search pattern/src/data/cmems_mod_ibi_phy_anfc_0.027deg-2D_PT15M-m_1627995734718.nc')
-    reader_wav_60 = reader_netCDF_CF_generic.Reader(
-            'C:/Users/xXY4n/DARE/_Active/Stratos IV/_Recovery/Retrieval/Search pattern/src/data/dataset-ibi-analysis-forecast-wav-005-005-hourly_1627995778445.nc')
+    reader_phy_15 = reader_netCDF_CF_generic.Reader(os.path.join('data', [i for i in os.listdir('data') if 'phy' in i][0]))
+    reader_wav_60 = reader_netCDF_CF_generic.Reader(os.path.join('data', [i for i in os.listdir('data') if 'wav' in i][0]))
 
     # Land
     reader_landmask = reader_global_landmask.Reader(extent=[-7.361,
@@ -62,13 +61,13 @@ def drift(nosecone_lon0,
     o.add_reader([reader_phy_15, reader_wav_60, reader_landmask])
 
     o.seed_elements(lon=nosecone_lon0, lat=nosecone_lat0,
-                    time=reader_phy_15.start_time,
+                    time=datetime.now(),
                     number=10000, radius=radius2sigma,
                     )
 
     o.set_config('drift:advection_scheme', 'runge-kutta')    # Propagation
 
-    o.run(end_time=reader_phy_15.start_time + timedelta(minutes=travel_time),
+    o.run(end_time=datetime.now() + timedelta(minutes=travel_time),
           time_step=5, time_step_output=60,
           )
 
