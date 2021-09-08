@@ -1,5 +1,4 @@
 # [DARE Stratos IV](https://dare.tudelft.nl/stratos4/) Nosecone Retrieval Drift Simulation
-`Antonio Lopez Rivera, 2021`
 
 ### [OpenDrift](https://opendrift.github.io/index.html) install
 
