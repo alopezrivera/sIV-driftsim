@@ -31,7 +31,7 @@ Open `src/__main__` to edit:
 ### Run
     conda activate opendrift
     cd src
-    python3 -m drift
+    python3 -m sift
   
 ### Output
 
