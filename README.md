@@ -38,5 +38,5 @@ Open `src/__main__` to edit
     36
     27'
     17.74''
-  
+---
 [Back to top](#dare-stratos-iv-retrieval-nosecone-drift-simulation)
