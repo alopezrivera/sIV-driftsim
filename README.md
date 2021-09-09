@@ -2,7 +2,7 @@
 
 Sift is a drifting object tracking program 
 for use in object retrieval or rescue missions.
-It was developed for the tracking a retrieval 
+It was developed for the tracking and retrieval 
 of the [DARE Stratos IV](https://dare.tudelft.nl/stratos4/) 
 mission nosecone capsule.
 
