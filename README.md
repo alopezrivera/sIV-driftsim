@@ -1,4 +1,15 @@
-# [DARE Stratos IV](https://dare.tudelft.nl/stratos4/) Nosecone Retrieval Drift Simulation
+# Sift
+
+Sift is a drifting object tracking program 
+for use in retrieval or rescue missions.
+It was developed for the tracking a retrieval 
+of the [DARE Stratos IV](https://dare.tudelft.nl/stratos4/) 
+mission nosecone capsule.
+
+OpenDrift is used for the drift simulation,
+using NetCDF sea current data obtained from the 
+Copernicus Earth Observation Program of the 
+European Space Agency.
 
 ### [OpenDrift](https://opendrift.github.io/index.html) install
 
