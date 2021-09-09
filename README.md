@@ -6,7 +6,7 @@ It was developed for the tracking a retrieval
 of the [DARE Stratos IV](https://dare.tudelft.nl/stratos4/) 
 mission nosecone capsule.
 
-OpenDrift is used for the drift simulation,
+[OpenDrift](https://opendrift.github.io/index.html) is used for the drift simulation,
 using NetCDF sea current data obtained from the 
 Copernicus Earth Observation Program of the 
 European Space Agency.
@@ -21,14 +21,14 @@ European Space Agency.
     pip install -e .
 
 ### Parameters
-Open `src/__main__` to edit
+Open `src/__main__` to edit:
 - Last known nosecone coordinate from radar.
 - Radar nosecone positioning uncertainty (implementation: 2 sigma radius).
 - Retrieval ship coordinates.
 - Retrieval ship cruise speed.
 - Log output.
 
-### Running
+### Run
     conda activate opendrift
     cd src
     python3 -m drift
