@@ -4,9 +4,9 @@
 import os
 from datetime import datetime, timedelta
 
-from opendrift.opendrift.models.oceandrift import OceanDrift
-from opendrift.opendrift.readers import reader_netCDF_CF_generic
-from opendrift.opendrift.readers import reader_global_landmask
+from opendrift.models.oceandrift import OceanDrift
+from opendrift.readers import reader_netCDF_CF_generic
+from opendrift.readers import reader_global_landmask
 
 from sift.utils import d_to_dms
 

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-only
 
 from datetime import datetime, timedelta
-from opendrift.opendrift.models.oceandrift import OceanDrift
+from opendrift.models.oceandrift import OceanDrift
 
 o = OceanDrift()
 o.add_readers_from_list(
