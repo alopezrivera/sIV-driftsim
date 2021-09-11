@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: © 2021 Antonio López Rivera <antonlopezr99@gmail.com>
+# SPDX-License-Identifier: GPL-3.0-only
+
 import numpy as np
 
 safety_zone_inta = np.array([[-6.750, 37.150],

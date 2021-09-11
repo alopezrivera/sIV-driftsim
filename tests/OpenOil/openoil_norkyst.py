@@ -1,8 +1,11 @@
+# SPDX-FileCopyrightText: © 2021 Antonio López Rivera <antonlopezr99@gmail.com>
+# SPDX-License-Identifier: GPL-3.0-only
+
 from numpy import random as rnd
 
-from opendrift.models.openoil import OpenOil
-from opendrift.readers import reader_netCDF_CF_generic
-from opendrift.readers import reader_global_landmask
+from opendrift.opendrift.models.openoil import OpenOil
+from opendrift.opendrift.readers import reader_netCDF_CF_generic
+from opendrift.opendrift.readers import reader_global_landmask
 
 """
 # Model:

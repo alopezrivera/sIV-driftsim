@@ -1,6 +1,9 @@
-from drift.ship import ship
-from drift.drift import drift
-from drift.utils import title
+# SPDX-FileCopyrightText: © 2021 Antonio López Rivera <antonlopezr99@gmail.com>
+# SPDX-License-Identifier: GPL-3.0-only
+
+from sift.ship import ship
+from sift.drift import drift
+from sift.utils import title
 
 
 """
