@@ -13,7 +13,7 @@ European Space Agency.
 
 ### [OpenDrift](https://opendrift.github.io/index.html) install
 
-    cd src
+    cd depdendencies
     cd opendrift
     conda config --add channels conda-forge
     conda env create -f environment.yml
