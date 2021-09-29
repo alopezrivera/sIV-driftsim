@@ -45,8 +45,8 @@ def drift(nosecone_lon0,
     :param animation: Animate nosecone drift simulation trajectories. Default: False
     :param loglevel: 0 -> Debug, 20 -> Reduced output, 50 -> No output
 
-    :return: [deg] Simulated nosecone longitude _travel_time_ after slpashdown.
-             [deg] Simulated nosecone latitude _travel_time_ after slpashdown.
+    :return: [deg] Simulated nosecone longitude _travel_time_ after splashdown.
+             [deg] Simulated nosecone latitude _travel_time_ after splashdown.
     """
 
     o = OceanDrift(loglevel=loglevel)
@@ -75,7 +75,8 @@ def drift(nosecone_lon0,
           )
 
     if plot:
-        o.plot(background=['x_sea_water_velocity', 'y_sea_water_velocity'])
+        o.plot(filename='oceandrift_huelva.png',
+               background=['x_sea_water_velocity', 'y_sea_water_velocity'])
 
     if animation:
         o.animation(filename='oceandrift_huelva.mp4',

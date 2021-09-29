@@ -1,6 +1,10 @@
 # SPDX-FileCopyrightText: © 2021 Antonio López Rivera <antonlopezr99@gmail.com>
 # SPDX-License-Identifier: GPL-3.0-only
 
+
+from pyfiglet import Figlet
+
+
 def d_to_dms(n):
     """
     Decimal degrees to
@@ -12,4 +16,5 @@ def d_to_dms(n):
 
 
 def title():
-    print("\n" + "  _____ _______      __  _____       _  __ _       _           \n / ____|_   _\\ \\    / / |  __ \\     (_)/ _| |     (_)          \n| (___   | |  \\ \\  / /  | |  | |_ __ _| |_| |_ ___ _ _ __ ___  \n \\___ \\  | |   \\ \\/ /   | |  | | '__| |  _| __/ __| | '_ ` _ \\ \n ____) |_| |_   \\  /    | |__| | |  | | | | |_\\__ \\ | | | | | |\n|_____/|_____|   \\/     |_____/|_|  |_|_|  \\__|___/_|_| |_| |_|\n                                                               \n")
+    s = Figlet()
+    print("\n" + s.renderText('Sift'))

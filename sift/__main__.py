@@ -19,10 +19,10 @@ RADIUS2SIGMA  = 500             # [m]
 SHIP_LON      = -6.75
 SHIP_LAT      = 36.3
 # SHIP CRUISE SPEED DURING APPROXIMATION TO LKNRC
-CRUISE_SPEED  = 15              # [kt/h]
+CRUISE_SPEED  = 3.5              # [kt/h]
 
 # 0: DEBUG OUTPUT | 20: REDUCED OUTPUT | 50: NO OUTPUT
-LOGLEVEL = 50
+LOGLEVEL      = 50
 
 
 def main():
@@ -43,7 +43,7 @@ def main():
                      nosecone_lat0=NOSECONE_LAT0,
                      radius2sigma=RADIUS2SIGMA,
                      loglevel=LOGLEVEL,
-                     travel_time=t
+                     travel_time=t,
                      )
 
     print(f"NOSECONE :: LONGITUDE forecast   :: [deg]")
