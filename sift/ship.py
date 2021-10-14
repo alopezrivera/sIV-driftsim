@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: © 2021 Antonio López Rivera <antonlopezr99@gmail.com>
 # SPDX-License-Identifier: GPL-3.0-only
 
+import datetime as dt
 from numpy import sin, cos, arctan2, sqrt
 
 from alexandria.math.units import rad
@@ -13,17 +14,18 @@ class ship:
                  lat,
                  cruise_speed):
         """
-        :param lon: [deg] Longitude
-        :param lat: [deg] Latitude
-        :param cruise_speed: [kt] Ship cruise speed
+        :param lon:          Longitude         [deg]
+        :param lat:          Latitude          [deg]
+        :param cruise_speed: Ship cruise speed [kt]
         """
         self.lon = lon
         self.lat = lat
-        self.crs = cruise_speed * 0.514444444
+        self.crs = cruise_speed * 0.5144444    # [m/2]
 
     def travel_time(self,
                     dest_lon,
-                    dest_lat):
+                    dest_lat,
+                    estimate):
         """
         Great-circle distance from ship to destination.
 
@@ -51,14 +53,14 @@ class ship:
 
         c = 2 * arctan2(sqrt(a), sqrt(1-a))
 
-        d = r_earth * c    # [m]
+        d = r_earth * c                   # [m]
 
-        print(f"SHIP     :: Distance to LKNRC    :: [Km]")
+        print("SHIP     :: Distance to target  :: [Km]")
         print(f"{d/1000:.2f}")
 
-        t = d/self.crs     # [s]
+        t = max(estimate, d/self.crs)     # [s]
 
-        print("SHIP     :: Travel time to LKNRC :: [min]")
-        print(f"{t/60:.2f}\n")
+        print("SHIP     :: Travel time         :: [h:mm:ss.ssssss]")
+        print(f"{dt.timedelta(seconds=t)}\n")
 
         return t/60

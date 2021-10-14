@@ -2,6 +2,4 @@
 .idea/*
 sift/__pycache__/*
 
-# Large files
-data/complete/dataset-ibi-analysis-forecast-wav-005-005-hourly_1627995825890.nc
-data/complete/cmems_mod_ibi_phy_anfc_0.027deg-2D_PT15M-m_1627995814493.nc
+# Sims

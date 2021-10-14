@@ -8,15 +8,15 @@ from opendrift.models.oceandrift import OceanDrift
 from opendrift.readers import reader_netCDF_CF_generic
 from opendrift.readers import reader_global_landmask
 
-from sift.utils import d_to_dms
+from sift.utils import d_dmdec
 
 
-def drift(nosecone_lon0,
-          nosecone_lat0,
+def drift(lon0,
+          lat0,
           radius2sigma,
           travel_time,
-          plot=False,
-          animation=False,
+          plot=True,
+          animation=True,
           loglevel=0):
     """
     # Model:
@@ -35,18 +35,18 @@ def drift(nosecone_lon0,
                 - MLON: -6.488
                 - MLAT: 37.150
 
-    :param nosecone_lon0: [deg] Last known nosecone longitude obtained by radar.
-    :param nosecone_lat0: [deg] Last known nosecone latitude obtained by radar.
+    :param lon0: [deg] Last known target longitude obtained by radar.
+    :param lat0: [deg] Last known target latitude obtained by radar.
     :param radius2sigma:  [m]   Radar positioning uncertainty.
                                     Radius around radar last known coordinate within
-                                    which lie 66.7% of real nosecone coordinates.
-    :param travel_time:   [min] Travel time from ship position to _nosecone_loc0_.
-    :param plot: Plot nosecone drift simulation trajectories. Default: False
-    :param animation: Animate nosecone drift simulation trajectories. Default: False
+                                    which lie 66.7% of real target coordinates.
+    :param travel_time:   [min] Travel time from ship position to _loc0_.
+    :param plot: Plot target drift simulation trajectories. Default: False
+    :param animation: Animate target drift simulation trajectories. Default: False
     :param loglevel: 0 -> Debug, 20 -> Reduced output, 50 -> No output
 
-    :return: [deg] Simulated nosecone longitude _travel_time_ after splashdown.
-             [deg] Simulated nosecone latitude _travel_time_ after splashdown.
+    :return: [deg] Simulated target longitude _travel_time_ after splashdown.
+             [deg] Simulated target latitude _travel_time_ after splashdown.
     """
 
     o = OceanDrift(loglevel=loglevel)
@@ -61,29 +61,40 @@ def drift(nosecone_lon0,
                                                             -6.488,
                                                             37.150])  # mLON, mLAT, MLON, MLAT
 
-    o.add_reader([reader_phy_15, reader_wav_60, reader_landmask])
+    o.add_reader([
+                  reader_phy_15,
+                  reader_wav_60,
+                  reader_landmask
+                  ])
 
-    o.seed_elements(lon=nosecone_lon0, lat=nosecone_lat0,
-                    time=datetime.now(),
+    # Time
+    start_time = max(datetime.now(), reader_phy_15.start_time, reader_wav_60.start_time)
+
+    # Seed
+    o.seed_elements(lon=lon0, lat=lat0,
+                    time=start_time,
                     number=10000, radius=radius2sigma,
                     )
 
-    o.set_config('drift:advection_scheme', 'runge-kutta')    # Propagation
+    # Integration scheme
+    o.set_config('drift:advection_scheme', 'runge-kutta')
 
-    o.run(end_time=datetime.now() + timedelta(minutes=travel_time),
+    # Run
+    o.run(end_time=start_time + timedelta(minutes=travel_time),
           time_step=5, time_step_output=60,
           )
 
     if plot:
-        o.plot(filename='oceandrift_huelva.png',
-               background=['x_sea_water_velocity', 'y_sea_water_velocity'])
+        o.plot(filename='SIM.png',
+               background=['x_sea_water_velocity', 'y_sea_water_velocity']
+               )
 
     if animation:
-        o.animation(filename='oceandrift_huelva.mp4',
+        o.animation(filename='SIM.mp4',
                     background=['x_sea_water_velocity', 'y_sea_water_velocity']
                     )
 
-    sim_lon = d_to_dms(o.elements.lon.mean())
-    sim_lat = d_to_dms(o.elements.lat.mean())
+    sim_lon = d_dmdec(o.elements.lon.mean())
+    sim_lat = d_dmdec(o.elements.lat.mean())
 
     return sim_lon, sim_lat
