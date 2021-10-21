@@ -17,7 +17,8 @@ def drift(lon0,
           travel_time,
           plot=True,
           animation=True,
-          loglevel=0):
+          loglevel=0,
+          n=1000):
     """
     # Model:
         OceanDrift
@@ -35,15 +36,16 @@ def drift(lon0,
                 - MLON: -6.488
                 - MLAT: 37.150
 
-    :param lon0: [deg] Last known target longitude obtained by radar.
-    :param lat0: [deg] Last known target latitude obtained by radar.
-    :param radius2sigma:  [m]   Radar positioning uncertainty.
+    :param lon0:            [deg] Last known target longitude obtained by radar.
+    :param lat0:            [deg] Last known target latitude obtained by radar.
+    :param radius2sigma:    [m]   Radar positioning uncertainty.
                                     Radius around radar last known coordinate within
                                     which lie 66.7% of real target coordinates.
-    :param travel_time:   [min] Travel time from ship position to _loc0_.
-    :param plot: Plot target drift simulation trajectories. Default: False
-    :param animation: Animate target drift simulation trajectories. Default: False
-    :param loglevel: 0 -> Debug, 20 -> Reduced output, 50 -> No output
+    :param travel_time:     [min] Travel time from ship position to _loc0_.
+    :param plot:                  Plot target drift simulation trajectories. Default: False
+    :param animation:             Animate target drift simulation trajectories. Default: False
+    :param loglevel:              0 -> Debug, 20 -> Reduced output, 50 -> No output
+    :param n:                     Number of simulated objects
 
     :return: [deg] Simulated target longitude _travel_time_ after splashdown.
              [deg] Simulated target latitude _travel_time_ after splashdown.
@@ -73,7 +75,7 @@ def drift(lon0,
     # Seed
     o.seed_elements(lon=lon0, lat=lat0,
                     time=start_time,
-                    number=10000, radius=radius2sigma,
+                    number=n, radius=radius2sigma,
                     )
 
     # Integration scheme
@@ -84,17 +86,27 @@ def drift(lon0,
           time_step=5, time_step_output=60,
           )
 
-    if plot:
-        o.plot(filename='SIM.png',
-               background=['x_sea_water_velocity', 'y_sea_water_velocity']
-               )
-
-    if animation:
-        o.animation(filename='SIM.mp4',
-                    background=['x_sea_water_velocity', 'y_sea_water_velocity']
-                    )
-
+    # Print results
     sim_lon = d_dmdec(o.elements.lon.mean())
     sim_lat = d_dmdec(o.elements.lat.mean())
+
+    print(f"TARGET   :: LONGITUDE forecast :: [deg]")
+    print(f"{int(sim_lon[0])}\n{int(sim_lon[1]):.2f}'\n")
+    print(f"TARGET   :: LATITUDE forecast  :: [deg]")
+    print(f"{int(sim_lat[0])}\n{int(sim_lat[1]):.2f}'\n")
+
+    # Visualization
+    if plot:
+        print("Generating plot.\n")
+        o.plot(filename='SIM.png',
+               background=['x_sea_water_velocity', 'y_sea_water_velocity'],
+               corners=[-7.361, -6.488, 35.856, 37.15],
+               )
+    if animation:
+        print("Generating animation.\n")
+        o.animation(filename='SIM.mp4',
+                    background=['x_sea_water_velocity', 'y_sea_water_velocity'],
+                    corners=[-7.361, -6.488, 35.856, 37.15],
+                    )
 
     return sim_lon, sim_lat

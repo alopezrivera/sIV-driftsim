@@ -55,12 +55,12 @@ class ship:
 
         d = r_earth * c                   # [m]
 
-        print("SHIP     :: Distance to target  :: [Km]")
+        print("SHIP     :: Distance to target :: [Km]")
         print(f"{d/1000:.2f}")
 
         t = max(estimate, d/self.crs)     # [s]
 
-        print("SHIP     :: Travel time         :: [h:mm:ss.ssssss]")
+        print("SHIP     :: Travel time        :: [h:mm:ss.ssssss]")
         print(f"{dt.timedelta(seconds=t)}\n")
 
         return t/60
