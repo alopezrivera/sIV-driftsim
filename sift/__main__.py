@@ -30,7 +30,8 @@ s             = ship(lon=SHIP_LON,
                      cruise_speed=CRUISE_SPEED)
 
 # SHIP TRAVEL TIME
-TRAVEL_TIME   = s.travel_time(dest_lon=LON0, dest_lat=LAT0, estimate=4*60*60)
+TRAVEL_TIME   = s.travel_time(dest_lon=LON0, dest_lat=LAT0, estimate=4*60*60):wq
+
 
 # 0: DEBUG OUTPUT | 20: REDUCED OUTPUT | 50: NO OUTPUT
 LOGLEVEL      = 50
